@@ -51,11 +51,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56t-hJ-n5e">
+                                <rect key="frame" x="87" y="304" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="lfa-Bi-wHj"/>
+                                    <constraint firstAttribute="height" constant="128" id="x0x-UO-dBD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="56t-hJ-n5e" firstAttribute="centerY" secondItem="eu4-r1-iCF" secondAttribute="centerY" id="6OK-by-0q6"/>
                             <constraint firstItem="4zL-gK-paj" firstAttribute="top" secondItem="vMS-6V-SMP" secondAttribute="bottom" constant="8" id="Bqr-h6-k7h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vMS-6V-SMP" secondAttribute="trailing" id="OiP-pW-LfJ"/>
+                            <constraint firstItem="56t-hJ-n5e" firstAttribute="centerX" secondItem="eu4-r1-iCF" secondAttribute="centerX" id="Rdu-xa-511"/>
                             <constraint firstItem="bek-Oj-O0M" firstAttribute="top" secondItem="vMS-6V-SMP" secondAttribute="bottom" constant="8" id="TpL-0q-eYE"/>
                             <constraint firstItem="WBP-Wo-nFB" firstAttribute="centerX" secondItem="eu4-r1-iCF" secondAttribute="centerX" id="Ys1-0i-mUa"/>
                             <constraint firstAttribute="leadingMargin" secondItem="vMS-6V-SMP" secondAttribute="leading" id="bPt-jc-akh"/>
