@@ -135,7 +135,6 @@ class TrainingExe5TableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             avResult.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
         }
     }
