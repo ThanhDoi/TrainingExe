@@ -9,6 +9,14 @@
 import UIKit
 
 class TrainingExe5TableViewCell: UITableViewCell {
+    
+    // MARK: Properties
+    
+    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var captureDateLabel: UILabel!
+    @IBOutlet weak var avValueLabel: UILabel!
+    @IBOutlet weak var loviValueLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
