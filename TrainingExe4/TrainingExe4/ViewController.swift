@@ -51,10 +51,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             moveButton.setTitle("Done", for: .normal)
             moveButton.isSelected = true
             editButton.isEnabled = false
+            tableView.isEditing = true
         } else {
             moveButton.setTitle("Move", for: .normal)
             moveButton.isSelected = false
             editButton.isEnabled = true
+            tableView.isEditing = false
         }
     }
     
