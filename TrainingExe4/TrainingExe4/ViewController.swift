@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         dateFormatter.dateFormat = "YYYY.MM.dd hh:mm"
         let date = dateFormatter.date(from: dateString)
         var avValue: Float = 2.1
+        
         for _ in 1...10 {
             let loviValue = Int(arc4random_uniform(100) + 100)
             let avResult1 = AVResult(captureDate: date!, avValue: avValue, loviValue: loviValue)
@@ -38,12 +39,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             editButton.setTitle("Done", for: .normal)
             editButton.isSelected = true
             moveButton.isEnabled = false
-            tableView.isEditing = true
         } else {
             editButton.setTitle("Edit", for: .normal)
             editButton.isSelected = false
             moveButton.isEnabled = true
-            tableView.isEditing = false
         }
     }
     
@@ -52,12 +51,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             moveButton.setTitle("Done", for: .normal)
             moveButton.isSelected = true
             editButton.isEnabled = false
-            tableView.isEditing = true
         } else {
             moveButton.setTitle("Move", for: .normal)
             moveButton.isSelected = false
             editButton.isEnabled = true
-            tableView.isEditing = false
         }
     }
     
@@ -101,6 +98,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.accessoryType = .disclosureIndicator
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return editButton.isSelected || moveButton.isSelected
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
