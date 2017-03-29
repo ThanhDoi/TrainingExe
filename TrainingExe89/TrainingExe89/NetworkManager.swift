@@ -9,7 +9,7 @@
 import Foundation
 
 protocol NetworkManagerDelegate: class {
-    func didUpdateSearchResult()
+    func didUpdateSearchResult(searchResults: [Track])
 }
 
 let didUpdateSearchResult = "didUpdateSearchResult"
@@ -71,14 +71,14 @@ class NetworkManager {
             } else {
                 print("JSON error")
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: didUpdateSearchResult), object: nil)
-            delegate?.didUpdateSearchResult()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: didUpdateSearchResult), object: searchResults)
+            delegate?.didUpdateSearchResult(searchResults: searchResults)
         } catch let error {
             print("Error parsing result: \(error.localizedDescription)")
         }
     }
     
-    func updateSearchResultsToBlock(_ url: URL, completion: @escaping (() -> Void)) {
+    func updateSearchResultsToBlock(_ url: URL, completion: @escaping ((_ searchResults: [Track]) -> Void)) {
         if dataTask != nil {
             dataTask?.cancel()
         }
@@ -90,7 +90,7 @@ class NetworkManager {
             } else if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode == 200 {
                     self.updateSearchResults(data)
-                    completion()
+                    completion(self.searchResults)
                 }
             }
         }

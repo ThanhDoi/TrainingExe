@@ -13,6 +13,8 @@ class DelegateViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var searchResults = [Track]()
+    
     lazy var tapRecognizer: UITapGestureRecognizer = {
         var recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         return recognizer
@@ -48,7 +50,8 @@ class DelegateViewController: UIViewController {
 }
 
 extension DelegateViewController: NetworkManagerDelegate {
-    func didUpdateSearchResult() {
+    func didUpdateSearchResult(searchResults: [Track]) {
+        self.searchResults = searchResults
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.tableView.setContentOffset(CGPoint.zero, animated: false)
@@ -60,7 +63,7 @@ extension DelegateViewController: NetworkManagerDelegate {
 
 extension DelegateViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NetworkManager.shared.searchResults.count
+        return self.searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,7 +71,7 @@ extension DelegateViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TrackCellTableViewCell
         
-        let track = NetworkManager.shared.searchResults[indexPath.row]
+        let track = self.searchResults[indexPath.row]
         
         cell.titleLabel.text = track.name
         cell.artistLabel.text = track.artist

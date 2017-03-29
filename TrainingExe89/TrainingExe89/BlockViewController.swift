@@ -13,6 +13,8 @@ class BlockViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var searchResults = [Track]()
+    
     lazy var tapRecognizer: UITapGestureRecognizer = {
         var recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         return recognizer
@@ -34,7 +36,8 @@ class BlockViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getUpdateSearchResult() {
+    func getUpdateSearchResult(searchResults: [Track]) {
+        self.searchResults = searchResults
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.tableView.setContentOffset(CGPoint.zero, animated: false)
@@ -58,7 +61,7 @@ class BlockViewController: UIViewController {
 
 extension BlockViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NetworkManager.shared.searchResults.count
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,7 +69,7 @@ extension BlockViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TrackCellTableViewCell
         
-        let track = NetworkManager.shared.searchResults[indexPath.row]
+        let track = searchResults[indexPath.row]
         
         cell.titleLabel.text = track.name
         cell.artistLabel.text = track.artist
@@ -86,8 +89,8 @@ extension BlockViewController: UISearchBarDelegate {
             let expectedCharSet = CharacterSet.urlQueryAllowed
             let searchTerm = searchBar.text!.addingPercentEncoding(withAllowedCharacters: expectedCharSet)!
             let url = URL(string: "https://itunes.apple.com/search?media=music&entity=song&term=\(searchTerm)")
-            NetworkManager.shared.updateSearchResultsToBlock(url!, completion: { _ in
-                self.getUpdateSearchResult()})
+            NetworkManager.shared.updateSearchResultsToBlock(url!, completion: { searchResults in
+                self.getUpdateSearchResult(searchResults: searchResults)})
         }
     }
     

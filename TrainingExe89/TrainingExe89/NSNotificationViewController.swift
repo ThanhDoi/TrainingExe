@@ -13,6 +13,8 @@ class NSNotificationViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
+    var searchResults = [Track]()
+    
     lazy var tapRecognizer: UITapGestureRecognizer = {
         var recognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         return recognizer
@@ -26,7 +28,7 @@ class NSNotificationViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(getUpdateSearchResult), name: NSNotification.Name(rawValue: didUpdateSearchResult), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getUpdateSearchResult(_:)), name: NSNotification.Name(rawValue: didUpdateSearchResult), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,7 +36,9 @@ class NSNotificationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getUpdateSearchResult() {
+    func getUpdateSearchResult(_ notification: Notification) {
+        let result = notification.object as! [Track]
+        self.searchResults = result
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.tableView.setContentOffset(CGPoint.zero, animated: false)
@@ -58,7 +62,7 @@ class NSNotificationViewController: UIViewController {
 
 extension NSNotificationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NetworkManager.shared.searchResults.count
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,7 +70,7 @@ extension NSNotificationViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TrackCellTableViewCell
         
-        let track = NetworkManager.shared.searchResults[indexPath.row]
+        let track = searchResults[indexPath.row]
         
         cell.titleLabel.text = track.name
         cell.artistLabel.text = track.artist
