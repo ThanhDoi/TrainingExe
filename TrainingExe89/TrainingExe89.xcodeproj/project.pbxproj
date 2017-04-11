@@ -111,6 +111,7 @@
 				TargetAttributes = {
 					C07120B81E8B6EB0003712B4 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = C4JTQ9S4D9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -280,6 +281,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C4JTQ9S4D9;
 				INFOPLIST_FILE = TrainingExe89/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Thanh-Doi.TrainingExe89";
@@ -292,6 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C4JTQ9S4D9;
 				INFOPLIST_FILE = TrainingExe89/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Thanh-Doi.TrainingExe89";
@@ -319,6 +322,7 @@
 				C07120CF1E8B6EB0003712B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
