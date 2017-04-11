@@ -223,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sq9-BT-Ld9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2162" y="9"/>
+            <point key="canvasLocation" x="2160.8000000000002" y="8.5457271364317844"/>
         </scene>
         <!--Cell Deltail View Controller-->
         <scene sceneID="3RQ-J3-qxq">
