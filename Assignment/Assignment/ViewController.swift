@@ -80,6 +80,7 @@ class ViewController: UIViewController {
         self.searchResults = result
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.tableView.setContentOffset(CGPoint.zero, animated: false)
         }
     }
@@ -157,7 +158,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tabCell", for: indexPath) as! tabViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tabCell", for: indexPath) as! TabCollectionViewCell
         cell.label.text = items[indexPath.row]
         if currentSelectedType[indexPath.row] {
             cell.backgroundColor = UIColor.green
@@ -197,9 +198,6 @@ extension ViewController: UISearchBarDelegate {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }
             NetworkManager.shared.updateSearchResultsFromUrl(url!)
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }
         }
     }
     

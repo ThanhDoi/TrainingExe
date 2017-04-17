@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C0271ECB1E9C7F89006CC3FF /* CellDeltailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0271ECA1E9C7F89006CC3FF /* CellDeltailViewController.swift */; };
+		C039CE541EA460F200853D14 /* TabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C039CE531EA460F200853D14 /* TabCollectionViewCell.swift */; };
 		C03D628E1E91E9D10005BCEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D628D1E91E9D10005BCEB /* AppDelegate.swift */; };
 		C03D62901E91E9D10005BCEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D628F1E91E9D10005BCEB /* ViewController.swift */; };
 		C03D62931E91E9D10005BCEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03D62911E91E9D10005BCEB /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		C0E628441E9B3A72001FF8AC /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E628431E9B3A72001FF8AC /* SWRevealViewController.m */; };
 		C0E628481E9B3DB9001FF8AC /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E628471E9B3DB9001FF8AC /* LeftMenuViewController.swift */; };
 		C0E6284A1E9B3DDD001FF8AC /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E628491E9B3DDD001FF8AC /* LeftMenuTableViewCell.swift */; };
-		C0E6284C1E9B4588001FF8AC /* tabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6284B1E9B4588001FF8AC /* tabViewCell.swift */; };
 		C0E628501E9B6301001FF8AC /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6284F1E9B6301001FF8AC /* SearchResultCell.swift */; };
 		C0E628521E9B8531001FF8AC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E628511E9B8531001FF8AC /* NetworkManager.swift */; };
 		C0E628541E9B8882001FF8AC /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E628531E9B8882001FF8AC /* Media.swift */; };
@@ -24,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		C0271ECA1E9C7F89006CC3FF /* CellDeltailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellDeltailViewController.swift; sourceTree = "<group>"; };
+		C039CE531EA460F200853D14 /* TabCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCollectionViewCell.swift; sourceTree = "<group>"; };
 		C03D628A1E91E9D10005BCEB /* Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03D628D1E91E9D10005BCEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03D628F1E91E9D10005BCEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		C0E628431E9B3A72001FF8AC /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		C0E628471E9B3DB9001FF8AC /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		C0E628491E9B3DDD001FF8AC /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
-		C0E6284B1E9B4588001FF8AC /* tabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tabViewCell.swift; sourceTree = "<group>"; };
 		C0E6284F1E9B6301001FF8AC /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		C0E628511E9B8531001FF8AC /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C0E628531E9B8882001FF8AC /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
@@ -72,7 +72,6 @@
 		C03D628C1E91E9D10005BCEB /* Assignment */ = {
 			isa = PBXGroup;
 			children = (
-				C0E6284E1E9B62A6001FF8AC /* ViewController */,
 				C0E6284D1E9B6266001FF8AC /* LeftMenu */,
 				C0E628401E9B3A40001FF8AC /* SWRevealViewController */,
 				C03D628D1E91E9D10005BCEB /* AppDelegate.swift */,
@@ -84,6 +83,8 @@
 				C0E628511E9B8531001FF8AC /* NetworkManager.swift */,
 				C0E628531E9B8882001FF8AC /* Media.swift */,
 				C0271ECA1E9C7F89006CC3FF /* CellDeltailViewController.swift */,
+				C039CE531EA460F200853D14 /* TabCollectionViewCell.swift */,
+				C0E6284F1E9B6301001FF8AC /* SearchResultCell.swift */,
 			);
 			path = Assignment;
 			sourceTree = "<group>";
@@ -101,19 +102,10 @@
 		C0E6284D1E9B6266001FF8AC /* LeftMenu */ = {
 			isa = PBXGroup;
 			children = (
-				C0E6284B1E9B4588001FF8AC /* tabViewCell.swift */,
 				C0E628471E9B3DB9001FF8AC /* LeftMenuViewController.swift */,
 				C0E628491E9B3DDD001FF8AC /* LeftMenuTableViewCell.swift */,
 			);
 			name = LeftMenu;
-			sourceTree = "<group>";
-		};
-		C0E6284E1E9B62A6001FF8AC /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C0E6284F1E9B6301001FF8AC /* SearchResultCell.swift */,
-			);
-			name = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,12 +183,12 @@
 			files = (
 				C0E628501E9B6301001FF8AC /* SearchResultCell.swift in Sources */,
 				C03D62901E91E9D10005BCEB /* ViewController.swift in Sources */,
+				C039CE541EA460F200853D14 /* TabCollectionViewCell.swift in Sources */,
 				C03D628E1E91E9D10005BCEB /* AppDelegate.swift in Sources */,
 				C0E6284A1E9B3DDD001FF8AC /* LeftMenuTableViewCell.swift in Sources */,
 				C0E628521E9B8531001FF8AC /* NetworkManager.swift in Sources */,
 				C0E628541E9B8882001FF8AC /* Media.swift in Sources */,
 				C0E628481E9B3DB9001FF8AC /* LeftMenuViewController.swift in Sources */,
-				C0E6284C1E9B4588001FF8AC /* tabViewCell.swift in Sources */,
 				C0271ECB1E9C7F89006CC3FF /* CellDeltailViewController.swift in Sources */,
 				C0E628441E9B3A72001FF8AC /* SWRevealViewController.m in Sources */,
 			);

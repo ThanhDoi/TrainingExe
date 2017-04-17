@@ -1,13 +1,13 @@
 //
-//  tabViewCell.swift
+//  TabCollectionViewCell.swift
 //  Assignment
 //
-//  Created by Thanh Doi on 4/10/17.
+//  Created by Thanh Doi on 4/17/17.
 //  Copyright © 2017 Thanh Doi. All rights reserved.
 //
 
 import UIKit
 
-class tabViewCell: UICollectionViewCell {
+class TabCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var label: UILabel!
 }
