@@ -14,17 +14,15 @@ class CellDeltailViewController: UIViewController {
     @IBOutlet weak var trackNameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     
-    var imageData: Data?
-    var trackName: String?
-    var artistName: String?
+    var media: Media?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        thumbnailImage.image = UIImage(data: imageData!)
-        trackNameLabel.text = trackName
-        artistNameLabel.text = artistName
+        thumbnailImage.image = UIImage(data: (media?.imageData)!)
+        trackNameLabel.text = media?.trackName
+        artistNameLabel.text = media?.artistName
     }
 
     override func didReceiveMemoryWarning() {

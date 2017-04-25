@@ -8,13 +8,9 @@
 
 import Foundation
 
-let didUpdateSearchResult = "didUpdateSearchResult"
-
 class NetworkManager {
     
     static let shared = NetworkManager()
-    
-    var mainViewController: UIViewController!
     
     private init() {
     }
@@ -24,24 +20,6 @@ class NetworkManager {
     var searchResults = [Media]()
     
     var dataTask: URLSessionDataTask?
-    
-    func updateSearchResultsFromUrl(_ url: URL) {
-        if dataTask != nil {
-            dataTask?.cancel()
-        }
-        
-        dataTask = defaultSession.dataTask(with: url) {
-            data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    self.updateSearchResults(data)
-                }
-            }
-        }
-        dataTask?.resume()
-    }
     
     func updateSearchResults(_ data: Data?)
     {
@@ -74,10 +52,27 @@ class NetworkManager {
             } else {
                 print("JSON error")
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: didUpdateSearchResult), object: searchResults)
         } catch let error {
             print("Error parsing result: \(error.localizedDescription)")
         }
     }
-
+    
+    func updateSearchResultsToBlock(_ url: URL, completion: @escaping ((_ searchResults: [Media]) -> Void)) {
+        if dataTask != nil {
+            dataTask?.cancel()
+        }
+        
+        dataTask = defaultSession.dataTask(with: url) {
+            data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    self.updateSearchResults(data)
+                    completion(self.searchResults)
+                }
+            }
+        }
+        dataTask?.resume()
+    }
 }

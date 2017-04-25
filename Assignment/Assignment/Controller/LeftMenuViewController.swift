@@ -9,8 +9,6 @@
 import UIKit
 
 class LeftMenuViewController: UITableViewController {
-    
-    let items = ["musicVideo", "movie", "ebook", "audiobook", "podcast"]
     var itemSelected: String?
     
     override func viewDidLoad() {
@@ -53,7 +51,7 @@ class LeftMenuViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.revealViewController() != nil {
-            let mainViewController = NetworkManager.shared.mainViewController
+            let mainViewController = self.revealViewController().frontViewController
             self.revealViewController().pushFrontViewController(mainViewController, animated: true)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: didChosenLeftMenu), object: items[indexPath.row])
         }

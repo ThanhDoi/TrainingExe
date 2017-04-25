@@ -8,12 +8,9 @@
 
 import UIKit
 
-var didChosenLeftMenu = "didChosenLeftMenu"
-
 class ViewController: UIViewController {
     
     // MARK: Properties
-    let items = ["musicVideo", "movie", "ebook", "audiobook", "podcast"]
     var currentSelectedType = [Bool](repeating: false, count: 5)
     var currentMediaType: String?
     
@@ -36,11 +33,17 @@ class ViewController: UIViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.revealViewController().draggableBorderWidth = self.view.frame.size.width / 3
+            self.revealViewController().draggableBorderWidth = self.view.frame.size.width / 4
             self.revealViewController().rearViewRevealWidth = 100
         }
         
         // MARK: Select tab
+        updateCurrentMediaType()
+        // MARK: getResultFromLeftMenu
+        NotificationCenter.default.addObserver(self, selector: #selector(getResultFromLeftMenu(_:)), name: NSNotification.Name(rawValue: didChosenLeftMenu), object: nil)
+    }
+    
+    func updateCurrentMediaType() {
         if currentMediaType == nil {
             currentSelectedType[0] = true
             currentMediaType = items[0]
@@ -48,21 +51,18 @@ class ViewController: UIViewController {
             for i in 0...4 {
                 if items[i] == currentMediaType {
                     currentSelectedType[i] = true
+                } else {
+                    currentSelectedType[i] = false
                 }
             }
         }
+        collectionView.reloadData()
         for i in 0...4 {
             if currentSelectedType[i] == true {
                 let indexPath = IndexPath(row: i, section: 0)
                 collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
             }
         }
-        
-        // MARK: getResultFromLeftMenu
-        NotificationCenter.default.addObserver(self, selector: #selector(getResultFromLeftMenu(_:)), name: NSNotification.Name(rawValue: didChosenLeftMenu), object: nil)
-        
-        // MARK: getSearchResult
-        NotificationCenter.default.addObserver(self, selector: #selector(getUpdateSearchResult(_:)), name: NSNotification.Name(rawValue: didUpdateSearchResult), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,14 +70,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        NetworkManager.shared.mainViewController = self.navigationController
-    }
-    
-    func getUpdateSearchResult(_ notification: Notification) {
-        let result = notification.object as! [Media]
-        self.searchResults = result
+    func getUpdateSearchResult(_ searchResults: [Media]) {
+        self.searchResults = searchResults
         DispatchQueue.main.async {
             self.tableView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -88,16 +82,7 @@ class ViewController: UIViewController {
     func getResultFromLeftMenu(_ notification: Notification) {
         let result = notification.object as! String
         self.currentMediaType = result
-        for i in 0...4 {
-            currentSelectedType[i] = false
-            if items[i] == currentMediaType {
-                currentSelectedType[i] = true
-            }
-        }
-        collectionView.reloadData()
-        let index = currentSelectedType.index(of: true)
-        let indexPath = IndexPath(row: index!, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+        updateCurrentMediaType()
         searchBarSearchButtonClicked(self.searchBar)
     }
     
@@ -109,9 +94,7 @@ class ViewController: UIViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             let selected = searchResults[indexPath.row]
             let destionation = segue.destination as! CellDeltailViewController
-            destionation.imageData = selected.imageData
-            destionation.artistName = selected.artistName
-            destionation.trackName = selected.trackName
+            destionation.media = selected
         }
     }
     
@@ -120,29 +103,25 @@ class ViewController: UIViewController {
     func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
         var index = currentSelectedType.index(of: true)
         if sender.direction == UISwipeGestureRecognizerDirection.right {
-            if index! > 0 {
-                currentSelectedType[index!] = false
-                index = index! - 1
-                currentSelectedType[index!] = true
-                currentMediaType = items[index!]
+            currentSelectedType[index!] = false
+            index = index! - 1
+            if index == -1 {
+                index = 4
             }
-            collectionView.reloadData()
-            let indexPath = IndexPath(row: index!, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
-            searchBarSearchButtonClicked(self.searchBar)
+            currentSelectedType[index!] = true
+            currentMediaType = items[index!]
         }
         if sender.direction == UISwipeGestureRecognizerDirection.left {
-            if index! < 4 {
-                currentSelectedType[index!] = false
-                index = index! + 1
-                currentSelectedType[index!] = true
-                currentMediaType = items[index!]
+            currentSelectedType[index!] = false
+            index = index! + 1
+            if index == 5 {
+                index = 0
             }
-            collectionView.reloadData()
-            let indexPath = IndexPath(row: index!, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
-            searchBarSearchButtonClicked(self.searchBar)
+            currentSelectedType[index!] = true
+            currentMediaType = items[index!]
         }
+        updateCurrentMediaType()
+        searchBarSearchButtonClicked(self.searchBar)
     }
 }
 
@@ -174,11 +153,7 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         currentMediaType = items[indexPath.row]
-        for i in 0...4 {
-            currentSelectedType[i] = false
-        }
-        currentSelectedType[indexPath.row] = true
-        collectionView.reloadData()
+        updateCurrentMediaType()
         if !self.searchBar.text!.isEmpty {
             searchBarSearchButtonClicked(self.searchBar)
         }
@@ -197,7 +172,8 @@ extension ViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }
-            NetworkManager.shared.updateSearchResultsFromUrl(url!)
+            NetworkManager.shared.updateSearchResultsToBlock(url!, completion: {searchResults in
+                self.getUpdateSearchResult(searchResults)})
         }
     }
     
