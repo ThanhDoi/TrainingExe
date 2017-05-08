@@ -14,6 +14,12 @@ class PageViewController: UIPageViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        let temp = self.gestureRecognizers
+        for each in temp {
+            if each is UIPanGestureRecognizer {
+                each.isEnabled = false
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

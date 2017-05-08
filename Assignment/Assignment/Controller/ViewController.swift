@@ -66,6 +66,44 @@ class ViewController: UIViewController {
         self.view.addSubview(pageViewController!.view)
         pageViewController?.didMove(toParentViewController: self)
         pageViewController?.view.frame = self.pageView.frame
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeRightGesture.direction = UISwipeGestureRecognizerDirection.right
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.left
+        pageViewController?.view.addGestureRecognizer(swipeRightGesture)
+        pageViewController?.view.addGestureRecognizer(swipeLeftGesture)
+    }
+    
+    func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
+        var index = currentSelectedType.index(of: true)
+        if sender.direction == UISwipeGestureRecognizerDirection.right {
+            currentSelectedType[index!] = false
+            index = index! - 1
+            if index == -1 {
+                index = 4
+            }
+            currentSelectedType[index!] = true
+            currentMediaType = items[index!]
+            
+            collectionView.reloadData()
+            let indexPath = IndexPath(row: index!, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+            searchBarSearchButtonClicked(self.searchBar)
+        }
+        if sender.direction == UISwipeGestureRecognizerDirection.left {
+            currentSelectedType[index!] = false
+            index = index! + 1
+            if index == 5 {
+                index = 0
+            }
+            currentSelectedType[index!] = true
+            currentMediaType = items[index!]
+            
+            collectionView.reloadData()
+            let indexPath = IndexPath(row: index!, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+            searchBarSearchButtonClicked(self.searchBar)
+        }
     }
     
     func updateCurrentMediaType() {
@@ -224,12 +262,5 @@ extension ViewController: UIPageViewControllerDataSource {
             self.searchBarSearchButtonClicked(self.searchBar)
         }
         return nil
-    }
-}
-
-extension ViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        print("asdasd")
-        return false
     }
 }
