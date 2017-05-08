@@ -18,7 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var pageView: UIView!
     
+    var pageViewController: UIPageViewController?
+    var orderedPageViewController = [ResultTableViewController]()
     var searchResults = [Media]()
     
     lazy var tapRecognizer: UITapGestureRecognizer = {
@@ -33,14 +36,41 @@ class ViewController: UIViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            self.pageView.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.revealViewController().draggableBorderWidth = self.view.frame.size.width / 4
             self.revealViewController().rearViewRevealWidth = 100
         }
-        
         // MARK: Select tab
         updateCurrentMediaType()
+        initOrderedPageViewController()
+        createPageViewController()
         // MARK: getResultFromLeftMenu
         NotificationCenter.default.addObserver(self, selector: #selector(getResultFromLeftMenu(_:)), name: NSNotification.Name(rawValue: didChosenLeftMenu), object: nil)
+    }
+    
+    func initOrderedPageViewController() {
+        for _ in 1...5 {
+            self.orderedPageViewController.append(self.newResultTableViewController())
+        }
+    }
+    
+    func newResultTableViewController() -> ResultTableViewController {
+        return self.storyboard?.instantiateViewController(withIdentifier: "ResultTableViewController") as! ResultTableViewController
+    }
+    
+    func createPageViewController() {
+        let pageController = self.storyboard!.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
+        pageController.dataSource = self
+        if !searchBar.text!.isEmpty {
+            let index = currentSelectedType.index(of: true)
+            let firstController = orderedPageViewController[index!]
+            let startingViewControllers = [firstController]
+            pageController.setViewControllers(startingViewControllers, direction: .forward, animated: true, completion: nil)
+        }
+        pageViewController = pageController
+        addChildViewController(pageViewController!)
+        pageViewController?.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        self.pageView.addSubview(pageViewController!.view)
     }
     
     func updateCurrentMediaType() {
@@ -73,9 +103,13 @@ class ViewController: UIViewController {
     func getUpdateSearchResult(_ searchResults: [Media]) {
         self.searchResults = searchResults
         DispatchQueue.main.async {
-            self.tableView.reloadData()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            self.tableView.setContentOffset(CGPoint.zero, animated: false)
+            let index = self.currentSelectedType.index(of: true)
+            self.orderedPageViewController[index!].searchResults = self.searchResults
+            self.orderedPageViewController[index!].tableView.reloadData()
+            let firstController = self.orderedPageViewController[index!]
+            let startingViewControllers = [firstController]
+            self.pageViewController?.setViewControllers(startingViewControllers, direction: .forward, animated: true, completion: nil)
         }
     }
     
@@ -88,40 +122,6 @@ class ViewController: UIViewController {
     
     func dismissKeyboard() {
         searchBar.resignFirstResponder()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            let selected = searchResults[indexPath.row]
-            let destionation = segue.destination as! CellDeltailViewController
-            destionation.media = selected
-        }
-    }
-    
-    
-    // MARK: Gesture Handle
-    func handleSwipeGesture(_ sender: UISwipeGestureRecognizer) {
-        var index = currentSelectedType.index(of: true)
-        if sender.direction == UISwipeGestureRecognizerDirection.right {
-            currentSelectedType[index!] = false
-            index = index! - 1
-            if index == -1 {
-                index = 4
-            }
-            currentSelectedType[index!] = true
-            currentMediaType = items[index!]
-        }
-        if sender.direction == UISwipeGestureRecognizerDirection.left {
-            currentSelectedType[index!] = false
-            index = index! + 1
-            if index == 5 {
-                index = 0
-            }
-            currentSelectedType[index!] = true
-            currentMediaType = items[index!]
-        }
-        updateCurrentMediaType()
-        searchBarSearchButtonClicked(self.searchBar)
     }
 }
 
@@ -190,33 +190,38 @@ extension ViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - UITableViewDataSource
-
-extension ViewController: UITableViewDataSource {
+// MARK: - UIPageViewControllerDataSource
+extension ViewController: UIPageViewControllerDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        var index = currentSelectedType.index(of: true)
+        currentSelectedType[index!] = false
+        index = index! - 1
+        if index == -1 {
+            index = 4
+        }
+        currentSelectedType[index!] = true
+        currentMediaType = items[index!]
+        updateCurrentMediaType()
+        DispatchQueue.main.async {
+            self.searchBarSearchButtonClicked(self.searchBar)
+        }
+        return nil
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "ResultCell"
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SearchResultCell
-        
-        let media = searchResults[indexPath.row]
-        
-        cell.trackNameLabel.text = media.trackName
-        cell.artistNameLabel.text = media.artistName
-        cell.thumbnailImage.image = UIImage(data: media.imageData!)
-        
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-        swipeRightGesture.direction = UISwipeGestureRecognizerDirection.right
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.left
-        
-        cell.addGestureRecognizer(swipeRightGesture)
-        cell.addGestureRecognizer(swipeLeftGesture)
-        
-        return cell
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        var index = currentSelectedType.index(of: true)
+        currentSelectedType[index!] = false
+        index = index! + 1
+        if index == 5 {
+            index = 0
+        }
+        currentSelectedType[index!] = true
+        currentMediaType = items[index!]
+        updateCurrentMediaType()
+        DispatchQueue.main.async {
+            self.searchBarSearchButtonClicked(self.searchBar)
+        }
+        return nil
     }
 }

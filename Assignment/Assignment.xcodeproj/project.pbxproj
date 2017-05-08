@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00468EA1EAF39F70049B97B /* ResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00468E91EAF39F70049B97B /* ResultTableViewController.swift */; };
 		C0388E211EAEEC6800E12B43 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0388E201EAEEC6800E12B43 /* Constants.swift */; };
 		C03D628E1E91E9D10005BCEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D628D1E91E9D10005BCEB /* AppDelegate.swift */; };
 		C03D62931E91E9D10005BCEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03D62911E91E9D10005BCEB /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C00468E91EAF39F70049B97B /* ResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTableViewController.swift; sourceTree = "<group>"; };
 		C0388E201EAEEC6800E12B43 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C03D628A1E91E9D10005BCEB /* Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03D628D1E91E9D10005BCEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				C03FCCDA1EAE083A00E7FE94 /* CellDeltailViewController.swift */,
 				C03FCCDB1EAE083A00E7FE94 /* LeftMenuViewController.swift */,
 				C03FCCDF1EAE083A00E7FE94 /* ViewController.swift */,
+				C00468E91EAF39F70049B97B /* ResultTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				C03FCCEB1EAE083A00E7FE94 /* Media.swift in Sources */,
 				C03FCCEC1EAE083A00E7FE94 /* NetworkManager.swift in Sources */,
 				C03D628E1E91E9D10005BCEB /* AppDelegate.swift in Sources */,
+				C00468EA1EAF39F70049B97B /* ResultTableViewController.swift in Sources */,
 				C03FCCE81EAE083A00E7FE94 /* LeftMenuViewController.swift in Sources */,
 				C03FCCEE1EAE083A00E7FE94 /* SearchResultCell.swift in Sources */,
 				C03FCCE91EAE083A00E7FE94 /* SWRevealViewController.m in Sources */,
