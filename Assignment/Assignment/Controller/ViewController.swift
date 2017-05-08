@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageView: UIView!
     
-    var pageViewController: UIPageViewController?
+    var pageViewController: PageViewController?
     var orderedPageViewController = [ResultTableViewController]()
     var searchResults = [Media]()
     
@@ -36,7 +36,6 @@ class ViewController: UIViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.pageView.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.revealViewController().draggableBorderWidth = self.view.frame.size.width / 4
             self.revealViewController().rearViewRevealWidth = 100
         }
@@ -59,18 +58,14 @@ class ViewController: UIViewController {
     }
     
     func createPageViewController() {
-        let pageController = self.storyboard!.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
+        let pageController = self.storyboard!.instantiateViewController(withIdentifier: "PageController") as! PageViewController
         pageController.dataSource = self
-        if !searchBar.text!.isEmpty {
-            let index = currentSelectedType.index(of: true)
-            let firstController = orderedPageViewController[index!]
-            let startingViewControllers = [firstController]
-            pageController.setViewControllers(startingViewControllers, direction: .forward, animated: true, completion: nil)
-        }
+        pageController.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         pageViewController = pageController
-        addChildViewController(pageViewController!)
-        pageViewController?.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        self.pageView.addSubview(pageViewController!.view)
+        self.addChildViewController(pageViewController!)
+        self.view.addSubview(pageViewController!.view)
+        pageViewController?.didMove(toParentViewController: self)
+        pageViewController?.view.frame = self.pageView.frame
     }
     
     func updateCurrentMediaType() {
@@ -105,6 +100,8 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             let index = self.currentSelectedType.index(of: true)
+            self.orderedPageViewController.remove(at: index!)
+            self.orderedPageViewController.insert(self.newResultTableViewController(), at: index!)
             self.orderedPageViewController[index!].searchResults = self.searchResults
             self.orderedPageViewController[index!].tableView.reloadData()
             let firstController = self.orderedPageViewController[index!]
@@ -115,9 +112,11 @@ class ViewController: UIViewController {
     
     func getResultFromLeftMenu(_ notification: Notification) {
         let result = notification.object as! String
-        self.currentMediaType = result
-        updateCurrentMediaType()
-        searchBarSearchButtonClicked(self.searchBar)
+        if (self.currentMediaType != result) {
+            self.currentMediaType = result
+            updateCurrentMediaType()
+            searchBarSearchButtonClicked(self.searchBar)
+        }
     }
     
     func dismissKeyboard() {
@@ -152,10 +151,12 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        currentMediaType = items[indexPath.row]
-        updateCurrentMediaType()
-        if !self.searchBar.text!.isEmpty {
-            searchBarSearchButtonClicked(self.searchBar)
+        if (currentMediaType != items[indexPath.row]) {
+            currentMediaType = items[indexPath.row]
+            updateCurrentMediaType()
+            if !self.searchBar.text!.isEmpty {
+                searchBarSearchButtonClicked(self.searchBar)
+            }
         }
     }
 }
@@ -223,5 +224,12 @@ extension ViewController: UIPageViewControllerDataSource {
             self.searchBarSearchButtonClicked(self.searchBar)
         }
         return nil
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print("asdasd")
+        return false
     }
 }

@@ -22,6 +22,7 @@
 		C03FCCED1EAE083A00E7FE94 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03FCCE41EAE083A00E7FE94 /* LeftMenuTableViewCell.swift */; };
 		C03FCCEE1EAE083A00E7FE94 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03FCCE51EAE083A00E7FE94 /* SearchResultCell.swift */; };
 		C03FCCEF1EAE083A00E7FE94 /* TabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03FCCE61EAE083A00E7FE94 /* TabCollectionViewCell.swift */; };
+		C08C95B61EC05F3500CC0DE5 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C95B51EC05F3500CC0DE5 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C03FCCE51EAE083A00E7FE94 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		C03FCCE61EAE083A00E7FE94 /* TabCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCollectionViewCell.swift; sourceTree = "<group>"; };
 		C03FCCF01EAE085F00E7FE94 /* Assignment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Assignment-Bridging-Header.h"; sourceTree = "<group>"; };
+		C08C95B51EC05F3500CC0DE5 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				C03FCCDB1EAE083A00E7FE94 /* LeftMenuViewController.swift */,
 				C03FCCDF1EAE083A00E7FE94 /* ViewController.swift */,
 				C00468E91EAF39F70049B97B /* ResultTableViewController.swift */,
+				C08C95B51EC05F3500CC0DE5 /* PageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				C03D628E1E91E9D10005BCEB /* AppDelegate.swift in Sources */,
 				C00468EA1EAF39F70049B97B /* ResultTableViewController.swift in Sources */,
 				C03FCCE81EAE083A00E7FE94 /* LeftMenuViewController.swift in Sources */,
+				C08C95B61EC05F3500CC0DE5 /* PageViewController.swift in Sources */,
 				C03FCCEE1EAE083A00E7FE94 /* SearchResultCell.swift in Sources */,
 				C03FCCE91EAE083A00E7FE94 /* SWRevealViewController.m in Sources */,
 			);

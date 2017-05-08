@@ -235,7 +235,7 @@
         <!--Page View Controller-->
         <scene sceneID="xqa-Np-n0G">
             <objects>
-                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="pageCurl" pageSpacing="10" navigationOrientation="horizontal" spineLocation="none" id="n0c-Vl-WzM" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="pageCurl" pageSpacing="10" navigationOrientation="horizontal" spineLocation="none" id="n0c-Vl-WzM" customClass="PageViewController" customModule="Assignment" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzN-sj-lUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1366" y="789"/>
@@ -309,6 +309,9 @@
                             <outlet property="delegate" destination="Jd3-lZ-wiy" id="7Oh-Fe-J90"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="tableView" destination="oDu-2k-h1J" id="i3c-z0-pfG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rPt-l7-NXz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
