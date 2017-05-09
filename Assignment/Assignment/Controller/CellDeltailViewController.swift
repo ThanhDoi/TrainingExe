@@ -30,6 +30,12 @@ class CellDeltailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func shareButtonAction(_ sender: Any) {
+        let defaultText: String = "Track: " + (media?.trackName)! + "\nArtist: " + (media?.artistName)! + "\nPreview here: " + (media?.trackURL)!
+        let defaultImage = UIImage(data: (media?.imageData)!)
+        let activityController = UIActivityViewController(activityItems: [defaultText, defaultImage], applicationActivities: nil)
+        self.present(activityController, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

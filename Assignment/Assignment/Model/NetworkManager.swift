@@ -41,7 +41,8 @@ class NetworkManager {
                             }
                             let artist = trackDictionary["artistName"] as? String
                             let imageURL = trackDictionary["artworkUrl100"] as? String
-                            searchResults.append(Media(trackName: name!, artistName: artist!, imageURL: imageURL!))
+                            let trackURL = trackDictionary["trackViewUrl"] as? String
+                            searchResults.append(Media(trackName: name!, artistName: artist!, imageURL: imageURL!, trackURL: trackURL!))
                         } else {
                             print("Not a dictionary")
                         }

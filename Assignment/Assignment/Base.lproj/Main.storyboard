@@ -30,7 +30,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rH0-em-6mO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-337" y="9"/>
+            <point key="canvasLocation" x="457" y="9"/>
         </scene>
         <!--Left Menu View Controller-->
         <scene sceneID="G10-5O-Zy7">
@@ -70,7 +70,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JSD-6d-7gV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="506" y="9"/>
+            <point key="canvasLocation" x="1366" y="-708"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="TfX-7f-Txt">
@@ -182,26 +182,39 @@
                                     <constraint firstAttribute="height" constant="343" id="fpD-ZS-MGv"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUt-cH-yNc">
-                                <rect key="frame" x="16" y="415" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUt-cH-yNc">
+                                <rect key="frame" x="8" y="413" width="359" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGD-Lo-kdN">
-                                <rect key="frame" x="16" y="444" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGD-Lo-kdN">
+                                <rect key="frame" x="8" y="444" width="359" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMB-L7-tbS">
+                                <rect key="frame" x="167" y="505" width="40" height="30"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareButtonAction:" destination="l3Q-dQ-qrc" eventType="touchUpInside" id="fso-hE-dfS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fSo-31-Gdt" firstAttribute="top" secondItem="k70-xA-x7N" secondAttribute="bottom" id="0dG-54-TIg"/>
+                            <constraint firstItem="oGD-Lo-kdN" firstAttribute="leading" secondItem="v6h-14-VlP" secondAttribute="leading" constant="8" id="0dh-lT-MKk"/>
                             <constraint firstItem="fSo-31-Gdt" firstAttribute="trailing" secondItem="v6h-14-VlP" secondAttribute="trailingMargin" id="Awt-oZ-IOb"/>
+                            <constraint firstAttribute="trailing" secondItem="PUt-cH-yNc" secondAttribute="trailing" constant="8" id="Dg6-Ko-pJo"/>
                             <constraint firstItem="fSo-31-Gdt" firstAttribute="leading" secondItem="v6h-14-VlP" secondAttribute="leadingMargin" id="Sqx-MS-sjP"/>
+                            <constraint firstItem="PUt-cH-yNc" firstAttribute="top" secondItem="fSo-31-Gdt" secondAttribute="bottom" constant="50" id="bhX-eO-ml5"/>
+                            <constraint firstItem="YMB-L7-tbS" firstAttribute="centerX" secondItem="v6h-14-VlP" secondAttribute="centerX" id="hUU-qd-EkT"/>
+                            <constraint firstItem="YMB-L7-tbS" firstAttribute="top" secondItem="oGD-Lo-kdN" secondAttribute="bottom" constant="40" id="qqE-hF-I5Q"/>
+                            <constraint firstItem="PUt-cH-yNc" firstAttribute="leading" secondItem="v6h-14-VlP" secondAttribute="leading" constant="8" id="rjd-Ox-Yyl"/>
+                            <constraint firstAttribute="trailing" secondItem="oGD-Lo-kdN" secondAttribute="trailing" constant="8" id="urw-UK-FfR"/>
+                            <constraint firstItem="oGD-Lo-kdN" firstAttribute="top" secondItem="PUt-cH-yNc" secondAttribute="bottom" constant="10" id="uu5-Ea-Wxv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -212,7 +225,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ln-yP-G9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3048.8000000000002" y="8.5457271364317844"/>
+            <point key="canvasLocation" x="3682" y="788"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7lv-Me-Qjp">
@@ -238,7 +251,7 @@
                 <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="pageCurl" pageSpacing="10" navigationOrientation="horizontal" spineLocation="none" id="n0c-Vl-WzM" customClass="PageViewController" customModule="Assignment" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzN-sj-lUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1366" y="789"/>
+            <point key="canvasLocation" x="2161" y="788"/>
         </scene>
         <!--Result Table View Controller-->
         <scene sceneID="fEL-3p-DsI">
@@ -315,7 +328,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rPt-l7-NXz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="788"/>
+            <point key="canvasLocation" x="2914" y="788"/>
         </scene>
     </scenes>
     <resources>
